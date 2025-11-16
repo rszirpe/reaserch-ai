@@ -16,6 +16,20 @@ An alien spacecraft-themed web application that researches multiple websites usi
 - 🎨 **Static Starfield**: Beautiful background with 100 static stars
 - ⚡ **Optimized Performance**: Smooth, lag-free experience
 
+## 📸 Screenshots
+
+### Main Interface
+![Main Interface](screenshots/main-interface.png)
+*Alien spacecraft control panel with search input and static starfield*
+
+### Processing State
+![Processing State](screenshots/processing.png)
+*System processing with animated loading steps*
+
+### Results Display
+![Results Display](screenshots/results.png)
+*AI-generated answer with source citations*
+
 ## 🎨 Design Philosophy
 
 The interface is designed to look like an **alien spacecraft control panel**:
