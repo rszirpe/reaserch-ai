@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ Quantum Research Terminal ⚡</title>
+    <link rel="stylesheet" href="style.css?v=2.0">
+</head>
+<body>
+    <!-- Animated Starfield Background -->
+    <canvas id="starfield"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>⚡ QUANTUM RESEARCH ⚡</h1>
+            <p class="subtitle">[ TEMPORAL KNOWLEDGE EXTRACTION SYSTEM ]</p>
+        </header>
+
+        <div class="search-section">
+            <form id="searchForm">
+                <div class="search-box">
+                    <input 
+                        type="text" 
+                        id="queryInput" 
+                        placeholder="▶ INITIATE QUERY SEQUENCE..." 
+                        required
+                        autocomplete="off"
+                    >
+                    <button type="submit" id="searchBtn">
+                        <span class="btn-text">ENGAGE</span>
+                        <span class="btn-icon">🚀</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div id="loadingSection" class="loading-section" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">⟨ SYSTEM PROCESSING ⟩</p>
+            <div class="loading-steps">
+                <div class="step" id="step1">
+                    <span class="step-icon">🔍</span>
+                    <span class="step-text">SCANNING QUANTUM DATABASE</span>
+                </div>
+                <div class="step" id="step2">
+                    <span class="step-icon">📡</span>
+                    <span class="step-text">EXTRACTING TEMPORAL DATA</span>
+                </div>
+                <div class="step" id="step3">
+                    <span class="step-icon">🧠</span>
+                    <span class="step-text">SYNTHESIZING NEURAL RESPONSE</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <div class="answer-card">
+                <h2>⟨ ANALYSIS COMPLETE ⟩</h2>
+                <div id="answerContent" class="answer-content"></div>
+            </div>
+
+            <div class="sources-card">
+                <h3>⟨ DATA SOURCES ⟩</h3>
+                <div id="sourcesContent" class="sources-content"></div>
+            </div>
+        </div>
+
+        <div id="errorSection" class="error-section" style="display: none;">
+            <div class="error-card">
+                <h3>⚠ SYSTEM ALERT ⚠</h3>
+                <p id="errorMessage"></p>
+                <button onclick="location.reload()" class="retry-btn">RETRY SEQUENCE</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>⟨ POWERED BY QUANTUM AI & TEMPORAL WEB MATRIX ⟩</p>
+    </footer>
+
+    <script src="script.js?v=2.0"></script>
+</body>
+</html>
