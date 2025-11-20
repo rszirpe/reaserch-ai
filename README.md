@@ -56,6 +56,20 @@ The interface is designed to look like an **alien spacecraft control panel**:
 - pip (Python package manager)
 - Internet connection
 
+---
+
+## ⚡ **ONE-LINE START (Copy & Paste)**
+
+After installing dependencies, use this command to start everything:
+
+```bash
+cd "/Users/rishi/reserch ai" && source venv/bin/activate && python -u background_trainer.py > training.log 2>&1 & python app.py &
+```
+
+Then open: **http://localhost:8080**
+
+---
+
 ## 🚀 Quick Start
 
 ### 1. Clone the Repository
@@ -95,9 +109,9 @@ python -u background_trainer.py > training.log 2>&1 &
 python app.py &
 ```
 
-**Option B: Copy-Paste One-Liner**
+**Option B: Copy-Paste One-Liner (Use This!)**
 ```bash
-python -u background_trainer.py > training.log 2>&1 & python app.py &
+cd "/Users/rishi/reserch ai" && source venv/bin/activate && python -u background_trainer.py > training.log 2>&1 & python app.py &
 ```
 
 ### 6. Access the Interface
