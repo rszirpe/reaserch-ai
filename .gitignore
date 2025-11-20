@@ -1,39 +1,31 @@
 # Python
-venv/
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
+*.py[cod]
+*$py.class
 *.so
-*.egg
-*.egg-info/
-dist/
-build/
+.Python
+venv/
+env/
+ENV/
+
+# AI Model Data (too large for git)
+model/training_data.db
+model/vocab.pkl
+model/model_status.json
+model/checkpoints/*.pt
 
 # Logs
 *.log
-app.log
+training.log
+flask.log
+trainer_error.log
 
-# Environment
+# OS
+.DS_Store
 .env
-.venv
-env/
-ENV/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
-.DS_Store
-
-# OS
-Thumbs.db
-
-# Documentation (feature lists)
-FUNK_MODE_ACTIVATED.md
-FUTURISTIC_UI_FEATURES.md
-QUICKSTART.md
-

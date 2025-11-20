@@ -10,6 +10,41 @@ const errorSection = document.getElementById('errorSection');
 const answerContent = document.getElementById('answerContent');
 const sourcesContent = document.getElementById('sourcesContent');
 const errorMessage = document.getElementById('errorMessage');
+const modelStatus = document.getElementById('modelStatus');
+const statusText = document.getElementById('statusText');
+
+// ============================================
+// MODEL STATUS UPDATER
+// ============================================
+async function updateModelStatus() {
+    try {
+        const response = await fetch(`${API_URL}/model-status`);
+        const data = await response.json();
+        
+        if (data.display_text) {
+            statusText.textContent = data.display_text;
+            
+            // Change color based on state
+            if (data.state === 'expert') {
+                modelStatus.style.borderLeftColor = '#00ff88';
+                statusText.style.color = '#00ff88';
+            } else if (data.state === 'ready') {
+                modelStatus.style.borderLeftColor = '#ffed4e';
+                statusText.style.color = '#ffed4e';
+            } else {
+                modelStatus.style.borderLeftColor = '#00fff9';
+                statusText.style.color = '#00fff9';
+            }
+        }
+    } catch (error) {
+        console.log('Could not fetch model status:', error);
+        statusText.textContent = 'STATUS OFFLINE';
+    }
+}
+
+// Update status every 10 seconds
+updateModelStatus();
+setInterval(updateModelStatus, 10000);
 
 // ============================================
 // STARFIELD ANIMATION

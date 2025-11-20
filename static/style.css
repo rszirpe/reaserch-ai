@@ -68,6 +68,34 @@ body::after {
     z-index: 2;
 }
 
+/* Model Status Display */
+.model-status {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(10, 21, 53, 0.9);
+    border: 2px solid rgba(0, 255, 249, 0.4);
+    border-left: 4px solid #00fff9;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.85rem;
+    color: #00fff9;
+    text-shadow: 0 0 10px rgba(0, 255, 249, 0.5);
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.5),
+        inset 0 0 15px rgba(0, 255, 249, 0.05);
+    z-index: 1000;
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px);
+    animation: status-pulse 3s ease-in-out infinite;
+}
+
+@keyframes status-pulse {
+    0%, 100% { box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(0, 255, 249, 0.05); }
+    50% { box-shadow: 0 5px 25px rgba(0, 255, 249, 0.3), inset 0 0 20px rgba(0, 255, 249, 0.1); }
+}
+
 /* Header with HUD Style */
 header {
     text-align: center;
