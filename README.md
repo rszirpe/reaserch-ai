@@ -1,16 +1,26 @@
 # 🛸 Quantum Research Terminal - AI Research Assistant
 
-An alien spacecraft-themed web application that researches multiple websites using DuckDuckGo and generates clear, concise answers using Google's Gemini AI.
+An alien spacecraft-themed web application that researches multiple websites using DuckDuckGo and generates clear, concise answers using **its own self-trained AI model** + Google's Gemini AI.
 
-![Version](https://img.shields.io/badge/version-2.0-00fff9)
+![Version](https://img.shields.io/badge/version-3.0-00fff9)
 ![Python](https://img.shields.io/badge/python-3.9+-0a1535)
 ![License](https://img.shields.io/badge/license-MIT-00fff9)
+![AI](https://img.shields.io/badge/AI-Self--Learning-00fff9)
 
 ## ✨ Features
 
+### 🧠 **NEW: Self-Learning AI Model**
+- **Trains 24/7**: Custom LSTM neural network that learns continuously in the background
+- **Web-Powered Learning**: Automatically scrapes and learns from the web autonomously
+- **Smart Switching**: Starts with Gemini, auto-switches to local model when trained
+- **Grammar Polishing**: Uses Gemini to correct grammar until model is fully independent
+- **Real-Time Status**: See training progress (examples, quality %) in the UI
+- **Your Own AI**: No external API calls once trained - fully private and fast!
+
+### 🔍 **Core Features**
 - 🔍 **Automated Web Research**: Searches DuckDuckGo for relevant information (no API key needed!)
 - 📄 **Multi-Site Scraping**: Extracts content from multiple websites simultaneously
-- 🤖 **AI-Powered Synthesis**: Uses Google Gemini 2.0 to generate clear, comprehensive answers
+- 🤖 **Dual AI System**: Gemini API + Custom self-trained neural network
 - 🛸 **Alien Spacecraft UI**: Futuristic interface with angular design and cyan glow aesthetic
 - 📚 **Source Citations**: Shows all sources used with clickable links
 - 🎨 **Static Starfield**: Beautiful background with 100 static stars
@@ -46,7 +56,7 @@ The interface is designed to look like an **alien spacecraft control panel**:
 - pip (Python package manager)
 - Internet connection
 
-## 🚀 Installation
+## 🚀 Quick Start
 
 ### 1. Clone the Repository
 
@@ -70,23 +80,61 @@ pip install -r requirements.txt
 
 ### 4. Configure API Key
 
-The Google Gemini API key is already configured in `app.py`. If you want to use your own:
+The Google Gemini API key is already configured in `config.py`. If you want to use your own:
 1. Get a free API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Replace the API key in `app.py` line 18
+2. Replace the API key in `config.py`
 
-## 🎮 Usage
+### 5. Start Both Services
 
-### Start the Server
-
+**Option A: Quick Start (Recommended)**
 ```bash
-python app.py
+# Start background trainer (24/7 learning)
+python -u background_trainer.py > training.log 2>&1 &
+
+# Start Flask app (web interface)
+python app.py &
 ```
 
-The server will start on **http://localhost:8080**
+**Option B: Copy-Paste One-Liner**
+```bash
+python -u background_trainer.py > training.log 2>&1 & python app.py &
+```
 
-### Access the Interface
+### 6. Access the Interface
 
-Open your browser and navigate to: **http://localhost:8080**
+Open your browser: **http://localhost:8080**
+
+## 🎮 How It Works
+
+### Initial Phase (First Few Hours)
+1. **Background Trainer** starts learning from the web 24/7
+2. You can use the app immediately - **Gemini API handles requests**
+3. Watch the training status in the **top-right corner**:
+   ```
+   [TRAINING: 150 examples | Quality: 0%]
+   ```
+
+### Training Phase (Days 1-7)
+1. Model trains continuously, even when you're not using it
+2. Quality score gradually increases: 25% → 50% → 75%
+3. Still uses Gemini for all answers (seamless for you!)
+
+### Auto-Switch (When Quality ≥ 85%)
+1. **App automatically switches to your local model!**
+2. Status changes to:
+   ```
+   [LOCAL AI: Quality 87% ✓]
+   ```
+3. Gemini still polishes grammar for professional output
+4. Faster responses (no API latency!)
+
+### Expert Mode (When Grammar ≥ 90%)
+1. **Fully independent!** No Gemini needed at all
+2. Status shows:
+   ```
+   [EXPERT MODE: 100% Independent 🧠]
+   ```
+3. 100% private, 100% free, 100% yours!
 
 ### How to Use
 
@@ -95,8 +143,39 @@ Open your browser and navigate to: **http://localhost:8080**
 3. Wait 10-30 seconds while the app:
    - Searches DuckDuckGo for relevant websites
    - Scrapes content from multiple sources
-   - Generates a comprehensive answer using Gemini AI
+   - Generates answer (Gemini or local model based on training status)
 4. Review the AI-generated answer and check the cited sources
+
+## 🧠 Self-Learning AI Details
+
+### What Makes It Special?
+- **Autonomous**: Learns from the web without any supervision
+- **Continuous**: Trains 24/7, even when you're sleeping
+- **Privacy-First**: Once trained, no data leaves your computer
+- **Cost-Free**: Eventually eliminates all API costs
+- **Custom**: Adapts to your research style and topics
+
+### Architecture
+- **Model**: LSTM Seq2Seq with Attention
+- **Vocabulary**: 30,000 words
+- **Parameters**: ~15M (lightweight, runs on CPU)
+- **Training**: Unsupervised learning from scraped web data
+- **Database**: SQLite for training examples
+- **Framework**: PyTorch
+
+### Background Processes
+1. **`background_trainer.py`**: 
+   - Generates random research topics
+   - Scrapes web content
+   - Trains neural network
+   - Saves checkpoints every 100 steps
+   - Runs forever (restart after reboot - see `RESTART_GUIDE.md`)
+
+2. **`app.py`**:
+   - Serves web interface
+   - Routes to Gemini or local model
+   - Provides real-time training status
+   - Manages quality evaluation
 
 ## 📝 Example Queries
 
@@ -108,17 +187,24 @@ Open your browser and navigate to: **http://localhost:8080**
 
 ## 🛠️ Technology Stack
 
+### AI & Machine Learning
+- **PyTorch** - Neural network framework
+- **Custom LSTM** - Seq2Seq architecture with attention
+- **Word-Level Tokenizer** - 30K vocabulary
+- **SQLite** - Training data management
+- **Google Gemini 2.0 Flash** - Initial answers + grammar correction
+
 ### Backend
 - **Flask** - Web framework
 - **BeautifulSoup4** - Web scraping
 - **Requests** - HTTP library
 - **DuckDuckGo HTML Search** - Free search (no API key needed)
-- **Google Gemini 2.0 Flash** - AI text generation
+- **ThreadPoolExecutor** - Concurrent web scraping
 
 ### Frontend
 - **HTML5** - Structure
 - **CSS3** - Styling (glassmorphism, angular design)
-- **Vanilla JavaScript** - Interactivity
+- **Vanilla JavaScript** - Interactivity + real-time status updates
 - **Canvas API** - Static starfield background
 
 ### Fonts
@@ -129,14 +215,31 @@ Open your browser and navigate to: **http://localhost:8080**
 
 ```
 reaserch-ai/
-├── app.py              # Flask backend server
-├── requirements.txt    # Python dependencies
-├── README.md          # This file
+├── app.py                      # Flask backend server
+├── background_trainer.py       # 24/7 AI training script
+├── config.py                   # Configuration settings
+├── requirements.txt            # Python dependencies
+├── README.md                   # This file
+├── START_TRAINING.md          # Training guide
+├── RESTART_GUIDE.md           # How to restart after reboot
+├── model/
+│   ├── __init__.py
+│   ├── neural_network.py      # LSTM Seq2Seq architecture
+│   ├── tokenizer.py           # Word-level tokenizer
+│   ├── trainer.py             # Training loop
+│   ├── data_manager.py        # SQLite database manager
+│   ├── autonomous_learner.py  # Web scraping for training
+│   ├── quality_checker.py     # Model evaluation
+│   ├── grammar_corrector.py   # Gemini grammar polishing
+│   ├── training_data.db       # Training examples (generated)
+│   ├── vocab.pkl              # Vocabulary (generated)
+│   └── checkpoints/           # Model weights (generated)
+│       └── best_model.pt
 ├── static/
-│   ├── index.html     # Frontend interface
-│   ├── style.css      # Alien spacecraft styling
-│   └── script.js      # Frontend logic & starfield
-└── venv/              # Virtual environment (not in repo)
+│   ├── index.html             # Frontend interface
+│   ├── style.css              # Alien spacecraft styling
+│   └── script.js              # Frontend logic + status updates
+└── venv/                      # Virtual environment (not in repo)
 ```
 
 ## 🎨 UI Features
@@ -186,6 +289,38 @@ lsof -ti:8080 | xargs kill -9
 ### Module Not Found Errors
 ```bash
 pip install -r requirements.txt
+```
+
+### Training Shows "STATUS OFFLINE"
+The Flask app stopped but the trainer is still running. Restart Flask:
+```bash
+cd "/Users/rishi/reserch ai"
+source venv/bin/activate
+python app.py &
+```
+
+### Check Training Progress
+```bash
+# See live training log
+tail -f training.log
+
+# Check model status
+curl http://localhost:8080/model-status
+```
+
+### After Computer Restart
+Both processes stop when you restart. See `RESTART_GUIDE.md` for full instructions, or run:
+```bash
+cd "/Users/rishi/reserch ai" && source venv/bin/activate && python -u background_trainer.py > training.log 2>&1 & python app.py &
+```
+
+### Multiple Trainers Running
+```bash
+# Kill all background trainers
+pkill -f background_trainer
+
+# Start just one
+python -u background_trainer.py > training.log 2>&1 &
 ```
 
 ### Rate Limit from Gemini API
