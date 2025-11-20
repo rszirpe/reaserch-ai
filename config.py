@@ -27,8 +27,9 @@ QUALITY_THRESHOLD = 0.85  # Switch to local model
 GRAMMAR_THRESHOLD = 0.90  # Stop using Gemini for grammar
 
 # Background Learning
-SCRAPE_INTERVAL = 30  # Seconds between scrapes
+SCRAPE_INTERVAL = 120  # Seconds between scrapes (REDUCED from 30 to save Gemini quota)
 MIN_TRAINING_EXAMPLES = 100  # Minimum examples before first evaluation
+EVAL_INTERVAL_CYCLES = 10  # Evaluate quality every X cycles (INCREASED from 5 to save Gemini quota)
 
 # Model Status States
 STATUS_TRAINING = "training"

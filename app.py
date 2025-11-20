@@ -211,8 +211,13 @@ Make your response informative but easy to understand. Use bullet points or numb
         
         return response.text
     except Exception as e:
-        print(f"Error generating answer with Gemini: {e}")
-        return f"Error generating answer: {str(e)}"
+        print(f"⚠️ Gemini API Error: {e}")
+        # Fallback: Return basic scraped content if Gemini fails
+        fallback = f"⚠️ Gemini API unavailable (quota/billing issue). Here's the raw information found:\n\n"
+        for i, data in enumerate(scraped_data[:3], 1):  # Show first 3 sources
+            fallback += f"**Source {i}:** {data['url']}\n{data['content'][:500]}...\n\n"
+        fallback += "\n💡 **Note:** Your local AI model is training and will replace Gemini soon!"
+        return fallback
 
 
 def generate_answer_hybrid(query, scraped_data):
