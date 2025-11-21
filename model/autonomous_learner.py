@@ -129,7 +129,12 @@ class AutonomousLearner:
     def learn_one_topic(self):
         """Learn one topic: search, scrape, create training example"""
         question, topic = self.generate_random_question()
-        print(f"\n[AUTONOMOUS LEARNING] Question: {question}")
+        
+        # Display question prominently
+        print(f"\n" + "="*70)
+        print(f"❓ QUESTION: {question}")
+        print(f"🔍 TOPIC: {topic}")
+        print("="*70)
         
         # Search and scrape
         context = self.search_and_scrape(topic)
@@ -147,8 +152,8 @@ class AutonomousLearner:
             )
             
             total = self.data_manager.get_total_examples()
-            print(f"[AUTONOMOUS LEARNING] Saved example #{total}")
-            print(f"[AUTONOMOUS LEARNING] Answer preview: {answer[:100]}...")
+            print(f"✅ Saved example #{total}")
+            print(f"📝 Answer preview: {answer[:150]}...")
             
             return True
         else:
