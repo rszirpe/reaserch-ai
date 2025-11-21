@@ -287,6 +287,9 @@ def serve_static(filename):
 def model_status():
     """Get current model training status"""
     try:
+        # IMPORTANT: Reload status from file to get latest updates from background trainer
+        quality_checker.load_status()
+        
         status = quality_checker.status
         total_examples = data_manager.get_total_examples()
         
