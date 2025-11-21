@@ -17,19 +17,19 @@ VOCAB_SIZE = 30000
 MAX_LENGTH = 512
 
 # Training Settings
-BATCH_SIZE = 4  # REDUCED from 32 for MUCH faster training (8x speed!)
+BATCH_SIZE = 1  # MAXIMUM SPEED: Train after EVERY example! 🚀
 LEARNING_RATE = 0.001
 GRADIENT_CLIP = 5.0
-CHECKPOINT_INTERVAL = 50  # Save every 50 steps (more frequent checkpoints)
+CHECKPOINT_INTERVAL = 25  # Save every 25 steps (frequent saves)
 
 # Quality Thresholds
 QUALITY_THRESHOLD = 0.85  # Switch to local model
 GRAMMAR_THRESHOLD = 0.90  # Stop using Gemini for grammar
 
 # Background Learning
-SCRAPE_INTERVAL = 45  # Seconds between scrapes (balanced for speed + quota safety)
+SCRAPE_INTERVAL = 10  # MAXIMUM SPEED: Scrape every 10 seconds! 🔥
 MIN_TRAINING_EXAMPLES = 100  # Minimum examples before first evaluation
-EVAL_INTERVAL_CYCLES = 5  # Evaluate quality every X cycles (faster feedback)
+EVAL_INTERVAL_CYCLES = 3  # Evaluate quality every 3 cycles (fastest feedback!)
 
 # Model Status States
 STATUS_TRAINING = "training"

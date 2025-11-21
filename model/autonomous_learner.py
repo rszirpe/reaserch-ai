@@ -18,27 +18,32 @@ import config
 class AutonomousLearner:
     """Agent that autonomously browses web and learns"""
     
-    # Diverse topics for autonomous learning
+    # MASSIVE topic list for maximum learning diversity 🚀
     TOPICS = [
         # Science
         "photosynthesis", "black holes", "DNA", "evolution", "atoms", "gravity",
-        "quantum physics", "chemistry", "astronomy", "biology",
+        "quantum physics", "chemistry", "astronomy", "biology", "neurons", "cells",
+        "molecules", "ecosystems", "fossils", "plate tectonics", "thermodynamics",
         
         # Technology
         "artificial intelligence", "machine learning", "blockchain", "robotics",
         "internet", "computers", "programming", "databases", "cloud computing",
+        "cybersecurity", "5G networks", "IoT", "algorithms", "data science",
         
         # History
         "World War 2", "Renaissance", "Ancient Egypt", "Roman Empire",
-        "Industrial Revolution", "Cold War", "Space Race",
+        "Industrial Revolution", "Cold War", "Space Race", "Medieval times",
+        "Vikings", "Ancient Greece", "Silk Road", "Colonization",
         
         # General Knowledge
         "climate change", "renewable energy", "medicine", "psychology",
-        "economics", "philosophy", "mathematics", "geography",
+        "economics", "philosophy", "mathematics", "geography", "languages",
+        "music theory", "architecture", "painting", "sculpture", "literature",
         
         # Current
         "cryptocurrency", "electric vehicles", "space exploration", "vaccines",
-        "social media", "virtual reality", "quantum computing"
+        "social media", "virtual reality", "quantum computing", "gene editing",
+        "3D printing", "drones", "solar panels", "wind turbines", "batteries"
     ]
     
     QUESTION_TEMPLATES = [
@@ -71,7 +76,7 @@ class AutonomousLearner:
             }
             data = {'q': query}
             
-            response = requests.post(url, headers=headers, data=data, timeout=10)
+            response = requests.post(url, headers=headers, data=data, timeout=5)  # Faster timeout
             soup = BeautifulSoup(response.content, 'lxml')
             
             results = []
@@ -87,7 +92,7 @@ class AutonomousLearner:
             all_text = ""
             for result_url in results:
                 try:
-                    page_response = requests.get(result_url, headers=headers, timeout=5)
+                    page_response = requests.get(result_url, headers=headers, timeout=3)  # Fast scraping!
                     page_soup = BeautifulSoup(page_response.content, 'lxml')
                     
                     # Remove unwanted tags
