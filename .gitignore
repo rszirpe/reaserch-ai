@@ -29,3 +29,4 @@ trainer_error.log
 .idea/
 *.swp
 *.swo
+model/checkpoints/*.pth

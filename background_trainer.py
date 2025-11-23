@@ -82,55 +82,53 @@ def main():
     while True:
         try:
             iteration += 1
-            print(f"\n\n{'='*70}")
-            print(f"🚀 TRAINING CYCLE #{iteration} - {time.strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"\n{'='*70}")
+            print(f"CYCLE {iteration} - {time.strftime('%Y-%m-%d %H:%M:%S')}")
             print(f"{'='*70}")
             
             # Step 1: Autonomous learning (scrape web)
-            print(f"\n[STEP 1] 🌐 Learning from the web...")
+            print(f"\n[{iteration}.1] Autonomous web learning...")
             learner.learn_one_topic()
             
             total_examples = data_manager.get_total_examples()
-            print(f"\n📚 TOTAL EXAMPLES IN DATABASE: {total_examples}")
+            print(f"[{iteration}.1] Total examples collected: {total_examples}")
             
             # Step 2: Build/update vocabulary if needed
             if len(tokenizer) < 100 and total_examples >= 20:
-                print(f"\n[STEP 2] 📖 Building vocabulary...")
+                print(f"\n[{iteration}.2] Building vocabulary...")
                 examples = data_manager.get_all_examples_for_vocab(limit=total_examples)
                 all_texts = []
                 for ex in examples:
                     all_texts.extend([ex[0], ex[1], ex[2]])  # question, context, answer
-                print(f"   Building vocab from {len(all_texts)} texts...")
+                print(f"[{iteration}.2] Building vocab from {len(all_texts)} texts...")
                 tokenizer.build_vocab(all_texts)
                 tokenizer.save(config.VOCAB_PATH)
-                print(f"   ✅ Vocabulary size: {len(tokenizer)} words")
             
             # Step 3: Train model if we have enough data
             untrained = data_manager.get_untrained_examples(limit=config.BATCH_SIZE)
             
             if len(untrained) >= config.BATCH_SIZE:
-                print(f"\n[STEP 3] 🧠 Training neural network on {len(untrained)} examples...")
+                print(f"\n[{iteration}.3] Training model on {len(untrained)} examples...")
                 
                 dataset = QADataset(untrained, tokenizer)
                 dataloader = DataLoader(dataset, batch_size=min(8, len(untrained)), shuffle=True)
                 
                 loss = trainer.train_epoch(dataloader)
-                print(f"   📉 Loss: {loss:.4f} (lower is better)")
+                print(f"[{iteration}.3] Training loss: {loss:.4f}")
                 
                 # Mark as trained
                 example_ids = [ex[0] for ex in untrained]
                 data_manager.mark_as_trained(example_ids)
                 
-                # Save checkpoint periodically
+                # Save checkpoint every 100 steps
                 if trainer.train_step % config.CHECKPOINT_INTERVAL == 0:
-                    print(f"   💾 Saving checkpoint at step {trainer.train_step}...")
                     trainer.save_checkpoint(config.MODEL_PATH)
             else:
-                print(f"\n[STEP 3] ⏸️  Waiting for more data ({len(untrained)}/{config.BATCH_SIZE} examples)")
+                print(f"\n[{iteration}.3] Not enough data for training yet ({len(untrained)}/{config.BATCH_SIZE})")
             
-            # Step 4: Evaluate model quality every few cycles
-            if iteration % config.EVAL_INTERVAL_CYCLES == 0 and total_examples >= config.MIN_TRAINING_EXAMPLES:
-                print(f"\n[STEP 4] 📊 Evaluating AI quality...")
+            # Step 4: Evaluate model quality every 5 cycles
+            if iteration % 5 == 0 and total_examples >= config.MIN_TRAINING_EXAMPLES:
+                print(f"\n[{iteration}.4] Evaluating model quality...")
                 
                 # Simple quality estimate based on loss and examples
                 avg_loss = trainer.get_avg_loss()
@@ -141,17 +139,15 @@ def main():
                 
                 quality_checker.update_metrics(total_examples, quality_score, grammar_score)
                 
-                print(f"   🎯 Quality: {quality_score:.1%} | Grammar: {grammar_score:.1%}")
-                print(f"   📈 Status: {quality_checker.get_status_display()}")
+                print(f"[{iteration}.4] Quality: {quality_score:.2%} | Grammar: {grammar_score:.2%}")
+                print(f"[{iteration}.4] Status: {quality_checker.get_status_display()}")
                 
                 data_manager.save_performance(total_examples, quality_score, grammar_score, quality_checker.status['state'])
             
-            # Display current status
-            print(f"\n{'='*70}")
-            print(f"📊 CURRENT STATUS: {quality_checker.get_status_display()}")
-            print(f"💾 Training Steps: {trainer.train_step}")
-            print(f"⏱️  Next cycle in {config.SCRAPE_INTERVAL} seconds")
-            print(f"{'='*70}")
+            # Display status
+            print(f"\n📊 Status: {quality_checker.get_status_display()}")
+            print(f"💾 Model: {trainer.train_step} training steps")
+            print(f"⏱️  Next cycle in {config.SCRAPE_INTERVAL} seconds...")
             
             # Sleep before next cycle
             time.sleep(config.SCRAPE_INTERVAL)
